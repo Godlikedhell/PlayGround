@@ -511,7 +511,7 @@ function showRaceHud(map) {
 }
 
 function showPause() {
-  if (game.raceState !== 'running') return;
+  if (game.raceState !== 'paused') return;
   $('pause-time').textContent = formatTime(game.raceTime);
   $('pause-map').textContent = currentRaceMap?.name || 'Time trial';
   syncQuickToggles();
