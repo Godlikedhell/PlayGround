@@ -18,6 +18,7 @@ document.body.classList.toggle('touch', coarse);
 const icons = {
   plat: `<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 11h18" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>`,
   ramp: `<svg viewBox="0 0 24 24"><path d="M3 19 21 6v13H3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8 19 8-5" stroke="currentColor" stroke-width="1.5" opacity=".5"/></svg>`,
+  curve: `<svg viewBox="0 0 24 24"><path d="M4 20V4h5v11h11v5H4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 10a5 5 0 0 1 5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`,
   beam: `<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 6v12" stroke="currentColor" stroke-width="1.2" opacity=".4"/></svg>`,
   spinner: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".55"/><rect x="3" y="10.4" width="18" height="3.2" rx="1.6" fill="currentColor"/><circle cx="12" cy="12" r="2" fill="#16112c"/></svg>`,
   mover: `<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2 12h3m14 0h3M5 9l-3 3 3 3m14-6 3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
@@ -36,6 +37,7 @@ const icons = {
 const PIECES = [
   { id: 'plat', label: 'Tile', icon: icons.plat, hint: 'Tap a grid cell to add a platform.' },
   { id: 'ramp', label: 'Ramp', icon: icons.ramp, hint: 'Ramps climb one level toward the arrow. Rotate first.' },
+  { id: 'curve', label: 'Curve', icon: icons.curve, hint: 'Quarter-turn track. Rotate to choose its corner.' },
   { id: 'beam', label: 'Beam', icon: icons.beam, hint: 'Narrow beams make brave lines. Rotate to aim.' },
   { id: 'spinner', label: 'Spinner', icon: icons.spinner, hint: 'Spinners knock marbles off course. Place them on tile cells.' },
   { id: 'mover', label: 'Mover', icon: icons.mover, hint: 'Movers glide back and forth. Ride them across gaps.' },

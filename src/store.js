@@ -210,7 +210,7 @@ export function encodeChallenge(map, bestMs = null) {
   return `MR1.${bytesToB64(bytes)}`;
 }
 
-const VALID = new Set(['plat', 'ramp', 'wall', 'spinner', 'mover', 'boost', 'bounce', 'beam', 'checkpoint', 'start', 'finish']);
+const VALID = new Set(['plat', 'ramp', 'curve', 'wall', 'spinner', 'mover', 'boost', 'bounce', 'beam', 'checkpoint', 'start', 'finish']);
 
 export function decodeChallenge(code) {
   const text = String(code || '').trim();

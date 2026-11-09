@@ -936,18 +936,56 @@ body.paused .desktop-hint, body.result-open .desktop-hint { opacity: .25; }
   .timer-cluster { min-width: 154px; }
 }
 
-@media (max-height: 560px) and (orientation: landscape) {
+@media (max-height: 640px) and (orientation: landscape) {
   .hero h1 { font-size: clamp(2.2rem, 8vh, 3.4rem); }
   .hero-copy { display: none; }
   .home-meta { display: none; }
-  .home-main { padding-bottom: 58px; }
+  .home-main { padding-bottom: calc(54px + var(--safe-b)); }
   .cta-row { margin-top: 12px; }
   .btn-xl { padding: 12px 18px; font-size: .78rem; }
-  .joystick { width: 104px; height: 104px; bottom: calc(10px + var(--safe-b)); }
+
+  .hud-top { padding-top: calc(7px + var(--safe-t)); gap: 8px; }
+  .timer-cluster { min-width: 144px; padding: 7px 11px 6px; border-radius: 15px; }
+  .hud-map { font-size: .46rem; }
+  .timer { font-size: 1.45rem; }
+  .timer-sub { margin-top: 1px; min-height: 12px; font-size: .5rem; }
+  .hud-right { gap: 5px; }
+  .cp-pill { padding: 7px 9px; font-size: .54rem; }
+  .pause-btn { width: 38px; height: 38px; }
+  .split-toast { top: calc(68px + var(--safe-t)); }
+  .hint-banner { bottom: calc(16px + var(--safe-b)); font-size: .58rem; }
+  body.touch .hint-banner { bottom: calc(16px + var(--safe-b)); }
+  .joystick { left: calc(12px + var(--safe-l)); bottom: calc(8px + var(--safe-b)); width: 104px; height: 104px; }
   .joy-knob { width: 46px; height: 46px; }
-  .jump-btn { width: 72px; height: 72px; font-size: .9rem; bottom: calc(12px + var(--safe-b)); }
-  .builder-bottom { padding-bottom: calc(4px + var(--safe-b)); }
-  .tool-btn, .piece-btn { height: 50px; }
+  .right-controls { right: calc(14px + var(--safe-r)); bottom: calc(10px + var(--safe-b)); gap: 6px; }
+  .jump-btn { width: 72px; height: 72px; font-size: .9rem; }
+
+  .builder-top { top: calc(6px + var(--safe-t)); left: calc(8px + var(--safe-l)); right: calc(8px + var(--safe-r)); padding: 5px 8px; gap: 6px; border-radius: 15px; }
+  .builder-heading .eyebrow { display: none; }
+  .builder-title-row h2 { font-size: .86rem; }
+  .builder-actions .btn { padding: 7px 9px; font-size: .6rem; }
+  .builder-actions .icon-btn { width: 30px; height: 30px; }
+  .builder-hint { top: calc(51px + var(--safe-t)); font-size: .5rem; padding: 4px 8px; }
+  .builder-level { top: 45%; right: calc(7px + var(--safe-r)); }
+  .builder-bottom { gap: 5px; padding: 4px calc(7px + var(--safe-r)) calc(4px + var(--safe-b)) calc(7px + var(--safe-l)); }
+  .tool-btn, .piece-btn { height: 50px; border-radius: 12px; }
+  .tool-btn { width: 48px; }
+  .tool-btn.rotate { width: 48px; height: 46px; margin-bottom: 2px; }
+  .piece-btn { flex-basis: 54px; }
+  .tool-btn svg, .piece-btn svg { width: 18px; height: 18px; }
+  .builder-meta { bottom: calc(62px + var(--safe-b)); left: calc(10px + var(--safe-l)); }
+}
+
+@media (max-height: 430px) and (orientation: landscape) {
+  .timer-cluster { min-width: 124px; padding: 5px 8px; }
+  .timer { font-size: 1.25rem; }
+  .hud-right .cp-pill { display: none; }
+  .joystick { width: 88px; height: 88px; }
+  .joy-knob { width: 40px; height: 40px; }
+  .jump-btn { width: 62px; height: 62px; }
+  .builder-level { padding: 4px; }
+  .level-btn { width: 29px; height: 25px; }
+  .builder-hint { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

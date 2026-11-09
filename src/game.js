@@ -22,6 +22,19 @@ const dirFor = (r) => {
   return new THREE.Vector3(Math.sin(a), 0, Math.cos(a));
 };
 
+function curveShape() {
+  const centerX = CELL / 2;
+  const centerZ = -CELL / 2;
+  const outer = CELL / 2;
+  const inner = CELL * 0.17;
+  const shape = new THREE.Shape();
+  shape.absarc(centerX, centerZ, outer, Math.PI, Math.PI / 2, true);
+  shape.lineTo(centerX, centerZ + inner);
+  shape.absarc(centerX, centerZ, inner, Math.PI / 2, Math.PI, false);
+  shape.closePath();
+  return shape;
+}
+
 function mulberry32(seed) {
   let a = seed >>> 0;
   return () => {
@@ -801,6 +814,57 @@ export class Game {
     return null;
   }
 
+  createCurve(p) {
+    const topY = this.topOf(p);
+    const thickness = 0.4;
+    const shape = curveShape();
+    const yaw = yawFor(p.r);
+    const body = new THREE.Mesh(
+      new THREE.ExtrudeGeometry(shape, { depth: thickness, bevelEnabled: false, curveSegments: 20, steps: 1 }),
+      this.makeMat(this.theme.bodySide, { roughness: 0.56, metalness: 0.05 }),
+    );
+    body.rotation.x = -Math.PI / 2;
+    body.rotation.z = 0;
+    body.rotation.y = yaw;
+    body.position.set(p.x * CELL, topY, p.z * CELL);
+    body.castShadow = true;
+    body.receiveShadow = true;
+    this.courseGroup.add(body);
+
+    const surface = new THREE.Mesh(
+      new THREE.ShapeGeometry(shape, 20),
+      this.makeMat(this.theme.top, { roughness: 0.62, metalness: 0.02, side: THREE.DoubleSide }),
+    );
+    surface.rotation.x = -Math.PI / 2;
+    surface.rotation.y = yaw;
+    surface.position.set(p.x * CELL, topY + 0.012, p.z * CELL);
+    surface.receiveShadow = true;
+    this.courseGroup.add(surface);
+
+    const center = new THREE.Vector3(p.x * CELL, topY - thickness / 2, p.z * CELL);
+    const trackRadius = CELL * ((0.5 + 0.17) / 2);
+    const arcLength = Math.PI * trackRadius / 2;
+    const segments = 16;
+    const halfLength = arcLength / segments * 0.62;
+    const baseYaw = yawFor(p.r);
+    for (let i = 0; i < segments; i++) {
+      const angle = (i + 0.5) * (Math.PI / 2 / segments);
+      const localX = CELL / 2 - trackRadius * Math.cos(angle);
+      const localZ = CELL / 2 - trackRadius * Math.sin(angle);
+      const point = new THREE.Vector3(localX, 0, localZ).applyAxisAngle(UP, baseYaw).add(center);
+      const tangentYaw = Math.PI - angle + baseYaw;
+      const quat = new THREE.Quaternion().setFromAxisAngle(UP, tangentYaw);
+      const col = this.addColliderBox(
+        point,
+        new THREE.Vector3(CELL * 0.18, thickness / 2, halfLength),
+        quat,
+        p,
+        'platform',
+      );
+      col.topY = topY;
+    }
+  }
+
   createRamp(p) {
     const t = this.theme;
     const topY = this.topOf(p);
@@ -1139,6 +1203,7 @@ export class Game {
   buildPiece(p) {
     switch (p.t) {
       case 'ramp': this.createRamp(p); break;
+      case 'curve': this.createCurve(p); break;
       case 'wall': this.createWall(p); break;
       case 'spinner': this.createSpinner(p); break;
       case 'mover': this.createMover(p); break;
@@ -1335,16 +1400,26 @@ export class Game {
     this.builderCursor = cursor;
 
     const ghost = new THREE.Group();
-    const ghostMat = new THREE.MeshBasicMaterial({ color: this.theme.accent, transparent: true, opacity: 0.38, depthWrite: false });
-    const ghostMesh = new THREE.Mesh(this.boxGeo(CELL * 0.96, 0.4, CELL * 0.96, 0.12), ghostMat);
+    const ghostMat = new THREE.MeshBasicMaterial({ color: this.theme.accent, transparent: true, opacity: 0.38, depthWrite: false, side: THREE.DoubleSide });
+    const ghostBoxGeometry = this.boxGeo(CELL * 0.96, 0.4, CELL * 0.96, 0.12);
+    const ghostCurveGeometry = new THREE.ShapeGeometry(curveShape(), 20);
+    const ghostCurveSolid = new THREE.ExtrudeGeometry(curveShape(), { depth: 0.4, bevelEnabled: false, curveSegments: 20, steps: 1 });
+    const ghostMesh = new THREE.Mesh(ghostBoxGeometry, ghostMat);
     ghost.add(ghostMesh);
+    const ghostCurveEdge = new THREE.LineSegments(
+      new THREE.EdgesGeometry(ghostCurveSolid),
+      new THREE.LineBasicMaterial({ color: this.theme.accent2, transparent: true, opacity: 0.9, depthWrite: false }),
+    );
+    ghostCurveEdge.rotation.x = -Math.PI / 2;
+    ghostCurveEdge.position.y = 0.22;
+    ghost.add(ghostCurveEdge);
     const arrow = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.52, 4), new THREE.MeshBasicMaterial({ color: this.theme.accent2, transparent: true, opacity: 0.85, depthWrite: false }));
     arrow.rotation.x = Math.PI / 2;
     arrow.position.set(0, 0.3, 0.85);
     ghost.add(arrow);
     ghost.visible = false;
     g.add(ghost);
-    this.builderGhost = { group: ghost, mesh: ghostMesh, arrow };
+    this.builderGhost = { group: ghost, mesh: ghostMesh, arrow, curveEdge: ghostCurveEdge, boxGeometry: ghostBoxGeometry, curveGeometry: ghostCurveGeometry, curveSolid: ghostCurveSolid };
   }
 
   focusBuilderCamera() {
@@ -1425,19 +1500,25 @@ export class Game {
     const ghost = this.builderGhost;
     const ramp = tool === 'ramp';
     const beam = tool === 'beam';
+    const curve = tool === 'curve';
+    ghost.mesh.geometry = curve ? ghost.curveGeometry : ghost.boxGeometry;
     if (ramp) {
       ghost.mesh.scale.set(1, 0.4, 1.32);
       ghost.mesh.rotation.x = -Math.atan2(STEP, CELL);
     } else if (beam) {
       ghost.mesh.scale.set(0.58, 0.5, 1);
       ghost.mesh.rotation.x = 0;
+    } else if (curve) {
+      ghost.mesh.scale.set(1, 1, 1);
+      ghost.mesh.rotation.x = -Math.PI / 2;
     } else {
       ghost.mesh.scale.set(1, 0.55, 1);
       ghost.mesh.rotation.x = 0;
     }
     ghost.mesh.rotation.y = 0;
     ghost.arrow.rotation.y = 0;
-    ghost.arrow.visible = !['plat', 'beam', 'checkpoint', 'start', 'finish', 'erase', 'bounce'].includes(tool);
+    ghost.arrow.visible = !['plat', 'beam', 'curve', 'checkpoint', 'start', 'finish', 'erase', 'bounce'].includes(tool);
+    ghost.curveEdge.visible = curve;
     ghost.group.rotation.y = yawFor(this.builder.rot);
     ghost.mesh.material.color.set(tool === 'erase' ? '#ff4d5e' : this.theme.accent);
     ghost.arrow.material.color.set(tool === 'erase' ? '#ff4d5e' : this.theme.accent2);

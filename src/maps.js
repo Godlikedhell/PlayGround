@@ -2,13 +2,13 @@
 
 export const CELL = 2.4;
 export const STEP = 1.2;
-export const GRID_MIN = -11;
-export const GRID_MAX = 11;
+export const GRID_MIN = -18;
+export const GRID_MAX = 18;
 export const LEVELS = 6;
 export const MARBLE_RADIUS = 0.5;
 
 export const PIECE_TYPES = [
-  'plat', 'ramp', 'wall', 'spinner', 'mover', 'boost', 'bounce', 'beam', 'checkpoint', 'start', 'finish',
+  'plat', 'ramp', 'curve', 'wall', 'spinner', 'mover', 'boost', 'bounce', 'beam', 'checkpoint', 'start', 'finish',
 ];
 
 export const THEMES = {
@@ -97,27 +97,27 @@ function addLine(list, cells, l, type = 'plat', r = 0) {
 /* 1 — Sunrise Sprint                                                   */
 /* ------------------------------------------------------------------ */
 const sunrisePieces = [];
-sunrisePieces.push(piece('start', 5, 10, 0, 2));
-addRow(sunrisePieces, 5, 9, 0, -1, 3, 0);              // 9,8,7
-addRow(sunrisePieces, 5, 5, 0, -1, 2, 0);              // 5,4
-sunrisePieces.push(piece('ramp', 5, 3, 0, 2));         // up to level 1
-addRow(sunrisePieces, 5, 2, 0, -1, 3, 1);              // 2,1,0
-sunrisePieces.push(piece('checkpoint', 5, 1, 1, 2));
-addRow(sunrisePieces, 4, 0, -1, 0, 2, 1);              // 4,3
-sunrisePieces.push(piece('spinner', 3, 0, 1, 0));      // replaces tile at 3
-sunrisePieces.push(piece('plat', 2, 0, 1, 0));
-sunrisePieces.push(piece('plat', 0, 0, 1, 0));         // one-cell gap at 1
-sunrisePieces.push(piece('boost', -1, 0, 1, 3));
-sunrisePieces.push(piece('plat', -2, 0, 1, 0));
-sunrisePieces.push(piece('plat', -3, 0, 1, 0));
-sunrisePieces.push(piece('mover', -4, 0, 1, 3));       // glides along x
-sunrisePieces.push(piece('plat', -6, 0, 1, 0));
-sunrisePieces.push(piece('checkpoint', -6, 1, 1, 0));
-sunrisePieces.push(piece('plat', -6, 2, 1, 0));
-sunrisePieces.push(piece('ramp', -6, 3, 0, 0));        // down to ground
-addRow(sunrisePieces, -6, 4, 0, 1, 2, 0);              // 4,5
-addRow(sunrisePieces, -6, 7, 0, 1, 2, 0);              // 7,8
-sunrisePieces.push(piece('finish', -6, 9, 0, 0));
+sunrisePieces.push(piece('start', 0, 8, 0, 2));
+addRow(sunrisePieces, 0, 7, 0, -1, 3, 0);
+addRow(sunrisePieces, 0, 3, 0, -1, 2, 0);
+sunrisePieces.push(piece('ramp', 0, 1, 0, 2));
+addRow(sunrisePieces, 0, 0, 0, -1, 2, 1);
+sunrisePieces.push(piece('checkpoint', 0, -1, 1, 2));
+sunrisePieces.push(piece('curve', 0, -2, 1, 0));
+addRow(sunrisePieces, 1, -2, 1, 0, 4, 1);
+sunrisePieces.push(piece('spinner', 5, -2, 1, 0));
+addRow(sunrisePieces, 6, -2, 1, 0, 2, 1);
+sunrisePieces.push(piece('curve', 8, -2, 1, 3));
+addRow(sunrisePieces, 8, -1, 0, 1, 4, 1);
+sunrisePieces.push(piece('boost', 8, 3, 1, 2));
+sunrisePieces.push(piece('curve', 8, 4, 1, 2));
+sunrisePieces.push(piece('plat', 7, 4, 1, 0));
+addRow(sunrisePieces, 6, 4, -1, 0, 3, 1);
+sunrisePieces.push(piece('mover', 3, 4, 1, 3));
+addRow(sunrisePieces, 2, 4, -1, 0, 2, 1);
+sunrisePieces.push(piece('curve', 0, 4, 1, 1));
+addRow(sunrisePieces, 0, 3, 0, -1, 2, 1);
+sunrisePieces.push(piece('finish', 0, 1, 1, 0));
 
 /* ------------------------------------------------------------------ */
 /* 2 — Neon Current                                                     */
@@ -128,15 +128,16 @@ addRow(neonPieces, 0, 12, 0, -1, 2, 0);                // 12,11
 neonPieces.push(piece('ramp', 0, 10, 0, 2));
 neonPieces.push(piece('checkpoint', 0, 9, 1, 2));
 neonPieces.push(piece('spinner', 0, 8, 1, 0));
-neonPieces.push(piece('plat', 0, 7, 1, 0));
+neonPieces.push(piece('curve', 0, 7, 1, 0));
 addRow(neonPieces, 1, 7, 1, 0, 2, 1);                  // 1,2
 neonPieces.push(piece('checkpoint', 2, 7, 1, 0));
 neonPieces.push(piece('plat', 4, 7, 1, 0));            // gap at 3
 neonPieces.push(piece('ramp', 5, 7, 1, 1));            // up toward +x
 neonPieces.push(piece('plat', 6, 7, 2, 0));
-neonPieces.push(piece('plat', 6, 6, 2, 0));
-neonPieces.push(piece('mover', 6, 5, 2, 2));           // rides along z
-neonPieces.push(piece('plat', 6, 3, 2, 0));
+neonPieces.push(piece('curve', 7, 7, 2, 2));
+neonPieces.push(piece('mover', 7, 6, 2, 2));           // rides along z
+neonPieces.push(piece('plat', 7, 4, 2, 0));
+neonPieces.push(piece('curve', 7, 3, 2, 3));
 neonPieces.push(piece('checkpoint', 6, 3, 2, 0));
 neonPieces.push(piece('ramp', 6, 2, 1, 0));            // down toward +z
 neonPieces.push(piece('plat', 6, 1, 1, 0));
