@@ -15,6 +15,6 @@ const previewSetup = {
 export default {
   plugins: [previewSetup],
   preview: {
-    allowedHosts: ['live-42634256344-1.omgithub.com'],
+    allowedHosts: ['live-42634256344-1.omgithub.com', 'live-42710323256-1.omgithub.com'],
   },
 };
