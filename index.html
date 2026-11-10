@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#07141b" />
+  <title>BOUNDARY — First Person Cricket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game" aria-label="First person cricket game">
+    <canvas id="field" aria-label="Cricket stadium game view"></canvas>
+    <div class="vignette"></div>
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark">B</span><span>BOUNDARY<span class="brand-sub">FIRST PERSON CRICKET</span></span></div>
+      <div class="match-pill"><span class="live-dot"></span><span id="matchStatus">PRACTICE MATCH</span></div>
+      <button id="soundBtn" class="icon-btn" aria-label="Toggle sound" title="Toggle sound">♫</button>
+    </div>
+    <section class="scoreboard" aria-label="Scoreboard">
+      <div class="score-main"><span class="score-label">YOUR INNINGS</span><div><strong id="runs">0</strong><span class="score-divider">/</span><span id="wickets">0</span></div><span class="overs"><span id="overs">0.0</span> <small>OVERS</small></span></div>
+      <div class="score-side"><span class="score-label">TARGET</span><strong id="target">24</strong><span class="score-note">RUNS TO WIN</span></div>
+    </section>
+    <div class="ball-track" id="ballTrack" aria-label="Balls remaining in over"></div>
+    <div class="shot-hint" id="shotHint"><span class="aim-icon">⌖</span><span>PLACE YOUR SHOT</span><i>MOVE MOUSE</i></div>
+    <div class="delivery-callout" id="deliveryCallout"><span class="callout-line"></span><span id="calloutText">GET READY</span></div>
+    <div class="result-toast" id="resultToast" aria-live="polite"></div>
+    <div class="bottom-hud">
+      <div class="bottom-tip"><kbd>SPACE</kbd> SWING <span class="tip-dot">·</span> <kbd>CLICK</kbd> AIM & HIT</div>
+      <div class="power-wrap"><span>SHOT</span><div class="power-bar"><i id="powerMeter"></i></div><span id="powerLabel">READY</span></div>
+    </div>
+    <button id="swingBtn" class="swing-btn" aria-label="Swing bat">SWING <b>↗</b></button>
+    <section class="overlay" id="startOverlay">
+      <div class="overlay-card intro-card">
+        <div class="eyebrow"><span></span> THE CROWD IS WAITING</div>
+        <h1>OWN THE<br><em>CREASE.</em></h1>
+        <p>Step into the batter’s shoes. Read the delivery, time your swing, and send it sailing.</p>
+        <div class="controls-row"><div><span class="control-icon">⌖</span><span><b>AIM</b><small>Move mouse / drag</small></span></div><div><span class="control-icon">↗</span><span><b>SWING</b><small>Space / click / tap</small></span></div></div>
+        <button id="startBtn" class="primary-btn">TAKE YOUR POSITION <span>→</span></button>
+        <div class="mini-note">2 OVERS · 24 TO WIN · TRUST YOUR TIMING</div>
+      </div>
+    </section>
+    <section class="overlay hidden" id="endOverlay">
+      <div class="overlay-card end-card"><div class="eyebrow"><span></span> INNINGS COMPLETE</div><h2 id="endTitle">WHAT A KNOCK.</h2><p id="endCopy">The crowd will remember that one.</p><div class="final-score"><strong id="finalRuns">0</strong><span>RUNS</span></div><button id="againBtn" class="primary-btn">PLAY AGAIN <span>↻</span></button></div>
+    </section>
+    <div class="flash" id="flash"></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
