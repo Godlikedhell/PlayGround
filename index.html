@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101c17" />
+  <title>Verdant — The Living Wild</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" aria-label="Jungle exploration game"></canvas>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Verdant home"><span class="brand-mark">V</span><span>VERDANT<span class="brand-dot">.</span></span></a>
+      <div class="location"><span class="live-dot"></span><span id="region-label">THE EMERALD BASIN</span><span class="location-sep">/</span><span id="time-label">09:42 AM</span></div>
+      <button class="icon-button" id="sound-button" aria-label="Toggle ambient sound" title="Sound on/off"><span id="sound-icon">♪</span></button>
+    </header>
+
+    <section class="coordinates" aria-label="Location">
+      <span class="eyebrow">FIELD POSITION</span>
+      <div class="coord-value"><span id="coord-x">018</span><span class="coord-divider">·</span><span id="coord-z">042</span></div>
+      <div class="coord-caption"><span class="coord-pin">⌖</span> RAINFOREST · SECTOR 04</div>
+    </section>
+
+    <section class="compass" aria-label="Compass">
+      <div class="compass-top">N</div><div class="compass-ring"><span class="compass-tick t1"></span><span class="compass-tick t2"></span><span class="compass-tick t3"></span><span class="compass-needle"></span></div>
+      <span class="compass-label" id="heading-label">N 000°</span>
+    </section>
+
+    <section class="discoveries" id="discoveries">
+      <div class="discovery-icon">✳</div><div><span class="eyebrow">FIELD NOTES</span><div class="discovery-count"><span id="discover-count">0</span><span class="muted"> / 3</span></div></div>
+      <div class="discovery-progress"><i id="progress-bar"></i></div>
+    </section>
+
+    <div class="crosshair"><i></i><b></b></div>
+    <div class="toast" id="toast"><span class="toast-symbol">✳</span><span id="toast-text">New field note</span></div>
+
+    <div class="bottom-left"><span class="keycap">W A S D</span><span>MOVE</span><span class="control-divider"></span><span class="keycap">SHIFT</span><span>SPRINT</span></div>
+    <div class="bottom-right"><span class="keycap">MOUSE</span><span>LOOK AROUND</span><span class="control-divider"></span><button class="map-toggle" id="map-toggle"><span>▤</span> MAP</button></div>
+
+    <aside class="map-panel" id="map-panel" aria-label="Map">
+      <div class="map-header"><div><span class="eyebrow">FIELD MAP</span><h2>Emerald Basin</h2></div><button id="close-map" aria-label="Close map">×</button></div>
+      <div class="map-canvas" id="map-canvas"><span class="map-north">N</span><span class="map-river"></span><span class="map-path"></span><span class="map-marker player-marker" id="map-player"></span><span class="map-marker marker-one"></span><span class="map-marker marker-two"></span><span class="map-marker marker-three"></span><span class="map-landmark">✦</span></div>
+      <div class="map-legend"><span><i class="legend-you"></i> YOU</span><span><i class="legend-note"></i> FIELD NOTES</span><span><i class="legend-landmark"></i> WATERFALL</span></div>
+    </aside>
+
+    <section class="intro" id="intro">
+      <div class="intro-card">
+        <div class="intro-kicker"><span class="live-dot"></span> FIELD JOURNAL · ENTRY 001</div>
+        <div class="intro-title-wrap"><div class="intro-leaf">✳</div><h1>THE LIVING<br><em>WILD.</em></h1></div>
+        <p class="intro-copy">A world untouched. Follow the river, find your own way, and listen to what the forest has to say.</p>
+        <button class="begin-button" id="begin-button"><span>STEP INTO THE WILD</span><span class="button-arrow">↗</span></button>
+        <div class="intro-footer"><span>OPEN WORLD EXPLORATION</span><span>NO PATHS REQUIRED</span></div>
+      </div>
+      <div class="intro-side-note"><span>06° 12′ S</span><i></i><span>73° 04′ W</span></div>
+      <div class="intro-bottom">A QUIET PLACE ON EARTH <span>—</span> 2026</div>
+    </section>
+
+    <div class="mobile-controls" id="mobile-controls">
+      <div class="joystick" id="joystick"><div class="joystick-knob" id="joystick-knob"></div></div>
+      <div class="look-hint">DRAG TO LOOK</div><button id="mobile-sprint" class="sprint-button">⇧</button>
+    </div>
+    <div class="pause-badge" id="pause-badge">CLICK TO RESUME</div>
+  </main>
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
