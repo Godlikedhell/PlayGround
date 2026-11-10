@@ -1,7 +1,7 @@
 /* Course geometry, themes, and the built-in set of timed maps. */
 
-export const CELL = 2.4;
-export const STEP = 1.2;
+export const CELL = 2.8;
+export const STEP = 1.4;
 export const GRID_MIN = -18;
 export const GRID_MAX = 18;
 export const LEVELS = 6;
@@ -101,8 +101,12 @@ sunrisePieces.push(piece('start', 0, 8, 0, 2));
 addRow(sunrisePieces, 0, 7, 0, -1, 3, 0);
 addRow(sunrisePieces, 0, 3, 0, -1, 2, 0);
 sunrisePieces.push(piece('ramp', 0, 1, 0, 2));
-addRow(sunrisePieces, 0, 0, 0, -1, 2, 1);
+addRow(sunrisePieces, 0, 0, 0, -1, 1, 1);
 sunrisePieces.push(piece('checkpoint', 0, -1, 1, 2));
+// A wide western bypass branches from the checkpoint and rejoins at the finish.
+addRow(sunrisePieces, -1, -1, -1, 0, 4, 1);
+addRow(sunrisePieces, -4, 0, 0, 1, 2, 1);
+addRow(sunrisePieces, -3, 1, 1, 0, 3, 1);
 sunrisePieces.push(piece('curve', 0, -2, 1, 0));
 addRow(sunrisePieces, 1, -2, 1, 0, 4, 1);
 sunrisePieces.push(piece('spinner', 5, -2, 1, 0));
@@ -129,9 +133,13 @@ neonPieces.push(piece('ramp', 0, 10, 0, 2));
 neonPieces.push(piece('checkpoint', 0, 9, 1, 2));
 neonPieces.push(piece('spinner', 0, 8, 1, 0));
 neonPieces.push(piece('curve', 0, 7, 1, 0));
-addRow(neonPieces, 1, 7, 1, 0, 2, 1);                  // 1,2
+addRow(neonPieces, 1, 7, 1, 0, 1, 1);                  // x=2 is the checkpoint
 neonPieces.push(piece('checkpoint', 2, 7, 1, 0));
-neonPieces.push(piece('plat', 4, 7, 1, 0));            // gap at 3
+neonPieces.push(piece('plat', 3, 7, 1, 0));
+// A broad lower shortcut gives racers a second line around the elevated gauntlet.
+addRow(neonPieces, 2, 6, 0, -1, 7, 1);
+addRow(neonPieces, 3, 0, 1, 0, 3, 1);
+neonPieces.push(piece('plat', 4, 7, 1, 0));
 neonPieces.push(piece('ramp', 5, 7, 1, 1));            // up toward +x
 neonPieces.push(piece('plat', 6, 7, 2, 0));
 neonPieces.push(piece('curve', 7, 7, 2, 2));
@@ -149,6 +157,7 @@ addRow(neonPieces, 5, -4, -1, 0, 2, 1);                // 5,4
 neonPieces.push(piece('checkpoint', 3, -4, 1, 3));
 neonPieces.push(piece('ramp', 2, -4, 1, 3));
 neonPieces.push(piece('plat', 1, -4, 2, 0));
+neonPieces.push(piece('plat', 0, -4, 2, 0));
 neonPieces.push(piece('beam', 0, -5, 2, 3));
 neonPieces.push(piece('beam', -1, -5, 2, 3));
 neonPieces.push(piece('beam', -2, -5, 2, 3));

@@ -5,7 +5,7 @@ const MAX_CUSTOM = 40;
 
 const defaults = () => ({
   v: 1,
-  settings: { sound: true, tilt: false, quality: 'auto', ghost: true },
+  settings: { sound: true, tilt: false, quality: 'auto', ghost: true, controlSize: 'large' },
   records: {},
   custom: [],
   draft: null,

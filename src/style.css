@@ -991,3 +991,14 @@ body.paused .desktop-hint, body.result-open .desktop-hint { opacity: .25; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* The selected touch-control size wins over viewport-specific compact defaults. */
+body.touch[data-control-size="small"] .joystick { width: clamp(86px, 14vh, 112px); height: clamp(86px, 14vh, 112px); }
+body.touch[data-control-size="small"] .joy-knob { width: 42px; height: 42px; }
+body.touch[data-control-size="small"] .jump-btn { width: clamp(68px, 11vh, 82px); height: clamp(68px, 11vh, 82px); font-size: .88rem; }
+body.touch[data-control-size="normal"] .joystick { width: clamp(102px, 17vh, 142px); height: clamp(102px, 17vh, 142px); }
+body.touch[data-control-size="normal"] .joy-knob { width: 52px; height: 52px; }
+body.touch[data-control-size="normal"] .jump-btn { width: clamp(82px, 14vh, 104px); height: clamp(82px, 14vh, 104px); font-size: 1rem; }
+body.touch[data-control-size="large"] .joystick { width: clamp(120px, 20vh, 170px); height: clamp(120px, 20vh, 170px); }
+body.touch[data-control-size="large"] .joy-knob { width: 64px; height: 64px; }
+body.touch[data-control-size="large"] .jump-btn { width: clamp(96px, 16vh, 128px); height: clamp(96px, 16vh, 128px); font-size: 1.18rem; }

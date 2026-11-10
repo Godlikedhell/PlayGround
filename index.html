@@ -280,6 +280,14 @@
           <button class="switch" id="set-tilt" role="switch" aria-checked="false"><i></i></button>
         </div>
         <div class="setting-row column">
+          <div><b>Touch controls</b><small>Choose the size of the joystick and jump button</small></div>
+          <div class="segmented" id="set-control-size" aria-label="Touch control size">
+            <button data-size="small" aria-pressed="false">SMALL</button>
+            <button data-size="normal" aria-pressed="false">MEDIUM</button>
+            <button data-size="large" class="is-active" aria-pressed="true">LARGE</button>
+          </div>
+        </div>
+        <div class="setting-row column">
           <div><b>Graphics</b><small>Auto matches your device</small></div>
           <div class="segmented" id="set-quality">
             <button data-q="auto" class="is-active">AUTO</button>

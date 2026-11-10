@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#100d22" />
   <meta name="description" content="Marble Rush — a 3D marble parkour time-trial game with a map builder, ghost races, and shareable courses." />
   <title>Marble Rush — 3D Parkour</title>
-  <script type="module" crossorigin src="./assets/index-_gHQVJEC.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BvRSi98y.css">
+  <script type="module" crossorigin src="./assets/index-CKYa6b6C.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-tZaefdvg.css">
 </head>
 <body>
   <canvas id="scene" aria-label="3D marble parkour game"></canvas>
@@ -279,6 +279,14 @@
         <div class="setting-row">
           <div><b>Tilt steering</b><small>Lean your device to roll (phones/tablets)</small></div>
           <button class="switch" id="set-tilt" role="switch" aria-checked="false"><i></i></button>
+        </div>
+        <div class="setting-row column">
+          <div><b>Touch controls</b><small>Choose the size of the joystick and jump button</small></div>
+          <div class="segmented" id="set-control-size" aria-label="Touch control size">
+            <button data-size="small" aria-pressed="false">SMALL</button>
+            <button data-size="normal" aria-pressed="false">MEDIUM</button>
+            <button data-size="large" class="is-active" aria-pressed="true">LARGE</button>
+          </div>
         </div>
         <div class="setting-row column">
           <div><b>Graphics</b><small>Auto matches your device</small></div>

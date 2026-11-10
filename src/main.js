@@ -1034,6 +1034,13 @@ function syncSettingsUI() {
   for (const b of document.querySelectorAll('#set-quality button')) {
     b.classList.toggle('is-active', b.dataset.q === s.quality);
   }
+  const controlSize = ['small', 'normal', 'large'].includes(s.controlSize) ? s.controlSize : 'large';
+  document.body.dataset.controlSize = controlSize;
+  for (const b of document.querySelectorAll('#set-control-size button')) {
+    const active = b.dataset.size === controlSize;
+    b.classList.toggle('is-active', active);
+    b.setAttribute('aria-pressed', String(active));
+  }
   syncSoundUI();
   syncQuickToggles();
 }
@@ -1139,6 +1146,13 @@ function setQuality(q) {
   showToast(`Graphics set to ${q === 'auto' ? 'auto' : q}.`);
 }
 
+function setControlSize(size) {
+  if (!['small', 'normal', 'large'].includes(size)) return;
+  store.setSetting('controlSize', size);
+  syncSettingsUI();
+  showToast(`Touch controls set to ${size}.`);
+}
+
 /* ------------------------------------------------------------------ */
 /* Modal wiring                                                        */
 /* ------------------------------------------------------------------ */
@@ -1173,6 +1187,9 @@ function wireModals() {
   $('set-sound').addEventListener('click', () => setSound(!store.data.settings.sound, true));
   $('set-ghost').addEventListener('click', () => setGhost(!store.data.settings.ghost));
   $('set-tilt').addEventListener('click', () => enableTilt(!store.data.settings.tilt));
+  for (const b of document.querySelectorAll('#set-control-size button')) {
+    b.addEventListener('click', () => setControlSize(b.dataset.size));
+  }
   for (const b of document.querySelectorAll('#set-quality button')) {
     b.addEventListener('click', () => setQuality(b.dataset.q));
   }
