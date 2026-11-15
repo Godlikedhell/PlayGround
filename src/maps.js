@@ -98,16 +98,16 @@ function addLine(list, cells, l, type = 'plat', r = 0) {
 /* ------------------------------------------------------------------ */
 const sunrisePieces = [];
 sunrisePieces.push(piece('start', 0, 8, 0, 2));
-addRow(sunrisePieces, 0, 7, 0, -1, 3, 0);
+addRow(sunrisePieces, 0, 7, 0, -1, 4, 0);
 addRow(sunrisePieces, 0, 3, 0, -1, 2, 0);
-sunrisePieces.push(piece('ramp', 0, 1, 0, 2));
-addRow(sunrisePieces, 0, 0, 0, -1, 2, 1);
+sunrisePieces.push(piece('ramp', 0, 1, 0, 3));
+addRow(sunrisePieces, 0, 0, 0, -1, 1, 1);
 sunrisePieces.push(piece('checkpoint', 0, -1, 1, 2));
-sunrisePieces.push(piece('curve', 0, -2, 1, 0));
+sunrisePieces.push(piece('curve', 0, -2, 1, 3));
 addRow(sunrisePieces, 1, -2, 1, 0, 4, 1);
 sunrisePieces.push(piece('spinner', 5, -2, 1, 0));
 addRow(sunrisePieces, 6, -2, 1, 0, 2, 1);
-sunrisePieces.push(piece('curve', 8, -2, 1, 3));
+sunrisePieces.push(piece('curve', 8, -2, 1, 1));
 addRow(sunrisePieces, 8, -1, 0, 1, 4, 1);
 sunrisePieces.push(piece('boost', 8, 3, 1, 2));
 sunrisePieces.push(piece('curve', 8, 4, 1, 2));
@@ -115,9 +115,19 @@ sunrisePieces.push(piece('plat', 7, 4, 1, 0));
 addRow(sunrisePieces, 6, 4, -1, 0, 3, 1);
 sunrisePieces.push(piece('mover', 3, 4, 1, 3));
 addRow(sunrisePieces, 2, 4, -1, 0, 2, 1);
-sunrisePieces.push(piece('curve', 0, 4, 1, 1));
+sunrisePieces.push(piece('curve', 0, 4, 1, 3));
 addRow(sunrisePieces, 0, 3, 0, -1, 2, 1);
 sunrisePieces.push(piece('finish', 0, 1, 1, 0));
+
+// A garden loop branches off the mover approach and rejoins at the mover.
+// The short inside route stays open while the longer loop adds room to explore.
+addRow(sunrisePieces, 7, 5, 0, 1, 4, 1);
+addRow(sunrisePieces, 6, 8, -1, 0, 1, 1);
+sunrisePieces.push(piece('spinner', 5, 8, 1, 0));
+addRow(sunrisePieces, 4, 8, -1, 0, 2, 1);
+addRow(sunrisePieces, 3, 7, 0, -1, 3, 1);
+sunrisePieces.push(piece('boost', 6, 7, 1, 2));
+sunrisePieces.push(piece('checkpoint', 4, 7, 1, 1));
 
 /* ------------------------------------------------------------------ */
 /* 2 — Neon Current                                                     */
@@ -125,35 +135,45 @@ sunrisePieces.push(piece('finish', 0, 1, 1, 0));
 const neonPieces = [];
 neonPieces.push(piece('start', 0, 13, 0, 2));
 addRow(neonPieces, 0, 12, 0, -1, 2, 0);                // 12,11
-neonPieces.push(piece('ramp', 0, 10, 0, 2));
+neonPieces.push(piece('ramp', 0, 10, 0, 3));
 neonPieces.push(piece('checkpoint', 0, 9, 1, 2));
 neonPieces.push(piece('spinner', 0, 8, 1, 0));
 neonPieces.push(piece('curve', 0, 7, 1, 0));
-addRow(neonPieces, 1, 7, 1, 0, 2, 1);                  // 1,2
+addRow(neonPieces, 1, 7, 1, 0, 1, 1);                  // 1
 neonPieces.push(piece('checkpoint', 2, 7, 1, 0));
 neonPieces.push(piece('plat', 4, 7, 1, 0));            // gap at 3
-neonPieces.push(piece('ramp', 5, 7, 1, 1));            // up toward +x
+neonPieces.push(piece('ramp', 5, 7, 1, 0));            // up toward +x
 neonPieces.push(piece('plat', 6, 7, 2, 0));
 neonPieces.push(piece('curve', 7, 7, 2, 2));
 neonPieces.push(piece('mover', 7, 6, 2, 2));           // rides along z
 neonPieces.push(piece('plat', 7, 4, 2, 0));
-neonPieces.push(piece('curve', 7, 3, 2, 3));
+neonPieces.push(piece('curve', 7, 3, 2, 1));
 neonPieces.push(piece('checkpoint', 6, 3, 2, 0));
-neonPieces.push(piece('ramp', 6, 2, 1, 0));            // down toward +z
+neonPieces.push(piece('ramp', 6, 2, 1, 1));            // down toward +z
 neonPieces.push(piece('plat', 6, 1, 1, 0));
 neonPieces.push(piece('boost', 6, 0, 1, 2));
-neonPieces.push(piece('plat', 6, -2, 1, 0));           // gap at -1
+neonPieces.push(piece('plat', 6, -2, 1, 0));           // gap at -1; detour loops around it
 neonPieces.push(piece('plat', 6, -3, 1, 0));
+// A side loop offers a safer route around the gap and rejoins the lower straight.
+neonPieces.push(piece('plat', 7, -2, 1, 0));
+neonPieces.push(piece('spinner', 8, -2, 1, 0));
+neonPieces.push(piece('plat', 9, -2, 1, 0));
+neonPieces.push(piece('plat', 9, -1, 1, 0));
+neonPieces.push(piece('checkpoint', 9, 0, 1, 1));
+neonPieces.push(piece('plat', 9, 1, 1, 0));
+neonPieces.push(piece('boost', 8, 1, 1, 2));
+neonPieces.push(piece('plat', 7, 1, 1, 0));
 neonPieces.push(piece('spinner', 6, -4, 1, 0));
 addRow(neonPieces, 5, -4, -1, 0, 2, 1);                // 5,4
 neonPieces.push(piece('checkpoint', 3, -4, 1, 3));
-neonPieces.push(piece('ramp', 2, -4, 1, 3));
+neonPieces.push(piece('ramp', 2, -4, 1, 2));
 neonPieces.push(piece('plat', 1, -4, 2, 0));
+neonPieces.push(piece('curve', 0, -4, 2, 3));
 neonPieces.push(piece('beam', 0, -5, 2, 3));
 neonPieces.push(piece('beam', -1, -5, 2, 3));
 neonPieces.push(piece('beam', -2, -5, 2, 3));
-neonPieces.push(piece('plat', -3, -5, 1, 0));
-neonPieces.push(piece('ramp', -3, -6, 1, 2));
+neonPieces.push(piece('plat', -3, -5, 2, 0));
+neonPieces.push(piece('plat', -3, -6, 2, 0));
 neonPieces.push(piece('plat', -3, -7, 2, 0));
 neonPieces.push(piece('finish', -3, -8, 2, 2));
 
@@ -171,7 +191,18 @@ templePieces.push(piece('plat', 2, 10, 2, 0));
 templePieces.push(piece('bounce', 3, 10, 2, 0));       // launches over the gap
 templePieces.push(piece('plat', 3, 8, 2, 0));
 templePieces.push(piece('plat', 3, 7, 2, 0));
-templePieces.push(piece('ramp', 3, 6, 2, 2));
+// A broad side garden loops between the two upper platforms, with a hazard lane.
+templePieces.push(piece('plat', 4, 8, 2, 0));
+templePieces.push(piece('spinner', 5, 8, 2, 0));
+addRow(templePieces, 6, 8, 1, 0, 2, 2);
+templePieces.push(piece('plat', 7, 7, 2, 0));
+templePieces.push(piece('boost', 7, 6, 2, 2));
+templePieces.push(piece('plat', 7, 5, 2, 0));
+templePieces.push(piece('plat', 6, 5, 2, 0));
+templePieces.push(piece('checkpoint', 5, 5, 2, 0));
+templePieces.push(piece('plat', 4, 5, 2, 0));
+addRow(templePieces, 4, 6, 0, 1, 2, 2);
+templePieces.push(piece('ramp', 3, 6, 2, 3));
 templePieces.push(piece('plat', 3, 5, 3, 0));
 templePieces.push(piece('checkpoint', 3, 4, 3, 0));
 templePieces.push(piece('beam', 2, 4, 3, 3));
